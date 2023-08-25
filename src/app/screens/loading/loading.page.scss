@@ -1,0 +1,11 @@
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('https://img.freepik.com/free-vector/abstract-blur-pink-blue-gradient-background-design_53876-169254.jpg?w=360&t=st=1692374600~exp=1692375200~hmac=ff2450605aeeb48376bec049765d090fb639d841abac60e80aede10dfa57b644') no-repeat;
+    background-size: cover;
+    flex-direction: column;
+}
