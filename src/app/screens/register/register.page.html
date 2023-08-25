@@ -27,7 +27,7 @@
     <ion-input [(ngModel)]="password" class="input" fill="fill" placeholder="Password" type="password"></ion-input>
   </ion-item>
 
-  <ion-button expand="full" class="login-button" routerLink="/dashboard">sign up</ion-button>
+  <ion-button expand="full" class="login-button" (click)="create()">sign up</ion-button>
   <ion-button expand="full" color="medium" routerLink="/login">Already have an Account</ion-button>
 
  </div>
