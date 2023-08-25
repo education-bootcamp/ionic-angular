@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/compat/auth'
+import { UserService } from 'src/app/services/user.service';
+
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterPage implements OnInit {
   fullName!:string;
   password!:string;
 
-  constructor(private firebaseAuth:AngularFireAuth) { }
+  constructor(private userService:UserService) { }
 
   ngOnInit() {
   }
@@ -21,16 +22,15 @@ export class RegisterPage implements OnInit {
 
   create(){
     if(this.email && this.password && this.fullName){
-      
-      this.firebaseAuth.createUserWithEmailAndPassword(
-        this.email,this.password
-      ).then(response=>{
-        console.log(response);
-        
-      }).catch(error=>{
+     this.userService.register(this.email, this.password).then(registerData=>{
+      this.userService.createUser(this.email,this.fullName).then(userData=>{
+        console.log(userData);
+       }).catch(error=>{
         console.log(error);
-        
-      });
+       });
+     }).catch(error=>{
+      console.log(error);
+     });
 
     }else{
       alert('try again!');
