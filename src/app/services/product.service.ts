@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {AngularFireStorage} from '@angular/fire/compat/storage';
 import { error } from 'console';
 import { resolve } from 'dns';
-import { finalize } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
 
-import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {AngularFirestore, DocumentChangeAction} from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +43,12 @@ export class ProductService {
 
   createProduct(obj:any):Promise<any>{
     return this.firestore.collection('products').add(obj);
+  }
+
+  loadAll():Observable<DocumentChangeAction<any>[]>{
+    console.log('triggered');
+    
+    return this.firestore.collection('products').snapshotChanges();
   }
 
 }
