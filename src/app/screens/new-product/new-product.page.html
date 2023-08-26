@@ -8,6 +8,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-
+<br>
+  <input type="file" (change)="selectFile($event)">
+  <br>
+  <input type="text" [(ngModel)]="productName">
+  <br>
+  <input type="text" [(ngModel)]="productCost">
+  <br>
+  <input type="text" [(ngModel)]="productDescription">
+  <br>
+  <ion-button fill="solid" (click)="upload()">Upload Product</ion-button>
 </ion-content>
