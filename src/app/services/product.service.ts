@@ -1,0 +1,41 @@
+import { Injectable } from '@angular/core';
+import {AngularFireStorage} from '@angular/fire/compat/storage';
+import { error } from 'console';
+import { resolve } from 'dns';
+import { finalize } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductService {
+
+  constructor(private storage:AngularFireStorage) { }
+
+  uploadFile(data:any):Promise<string>{
+    console.log(data.name);
+    console.log(data);
+    const filePath = `products/${Math.floor(Math.random()+101)}_${data.name}`;
+    const fileRef = this.storage.ref(filePath);
+    // this.storage.upload(filePath, data).then(task=>{
+    //   task.ref.getDownloadURL().then(url=>{
+    //     console.log(url);
+    //   })
+    // }).catch(error=>{
+    //   console.log(error);
+      
+    // })
+
+    const uploadTask = this.storage.upload(filePath, data);
+    return new Promise<string>((resolve, reject)=>{
+      uploadTask.snapshotChanges().pipe(
+        finalize(()=>{
+          fileRef.getDownloadURL().subscribe(url=>{
+               resolve(url);
+          }, error=>{
+            reject(error)
+          })
+        })
+      ).subscribe();
+    });
+  }
+}
