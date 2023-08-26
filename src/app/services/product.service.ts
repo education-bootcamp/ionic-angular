@@ -4,12 +4,14 @@ import { error } from 'console';
 import { resolve } from 'dns';
 import { finalize } from 'rxjs';
 
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor(private storage:AngularFireStorage) { }
+  constructor(private firestore:AngularFirestore, private storage:AngularFireStorage) { }
 
   uploadFile(data:any):Promise<string>{
     console.log(data.name);
@@ -38,4 +40,9 @@ export class ProductService {
       ).subscribe();
     });
   }
+
+  createProduct(obj:any):Promise<any>{
+    return this.firestore.collection('products').add(obj);
+  }
+
 }
