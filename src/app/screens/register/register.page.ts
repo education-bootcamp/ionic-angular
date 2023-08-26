@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
 
@@ -14,7 +15,7 @@ export class RegisterPage implements OnInit {
   fullName!:string;
   password!:string;
 
-  constructor(private userService:UserService) { }
+  constructor(private userService:UserService, private router:Router) { }
 
   ngOnInit() {
   }
@@ -24,7 +25,7 @@ export class RegisterPage implements OnInit {
     if(this.email && this.password && this.fullName){
      this.userService.register(this.email, this.password).then(registerData=>{
       this.userService.createUser(this.email,this.fullName).then(userData=>{
-        console.log(userData);
+        this.router.navigateByUrl('/dashboard');
        }).catch(error=>{
         console.log(error);
        });
